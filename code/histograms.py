@@ -87,18 +87,33 @@ def test_run(start_date, end_date, symbols):
 	if 'SPY' not in symbols:
 		symbols.insert(0, 'SPY')
 	df = get_data(symbols, dates)
-	print(df.mean())
-	print(df.median())
-	print(df.std())
+#	print(df.mean())
+#	print(df.median())
+#	print(df.std())
 	return df
 
 
+def show_histograms(df, symbols):
+	daily_returns = computer_daily_returns(df)
+#	ax = daily_returns.plot(title='Histograms', label='SPY')
+#	ax.set_xlabel('SPY')
+	for symbol in symbols:
+		daily_returns[symbol].hist(bins=20, label=symbol)
+#		ax.set_ylabel(symbol)
+
+#	ax.set_xlabel('SPY')
+	
+#	ax.legend(loc='upper left')
+	plt.show()
+
+
 if __name__ == "__main__":
-	start_date = '2015-01-01'
+	start_date = '2000-01-01'
 	end_date = '2015-12-31'
-	symbols = [] # ['IBM', 'GOOG', 'GLD','XOM']
+	symbols = ['XOM','GLD'] # ['IBM', 'GOOG', 'GLD','XOM']
 	df = test_run(start_date, end_date, symbols)
-	plot_selected(df, symbols, '2015-01-01', '2015-12-31')
+	show_histograms(df, symbols)
+#	plot_selected(df, symbols, '2000-01-01', '2015-12-31')
 #	print(df.ix['2015-02-04':'2015-02-20',['IBM','GLD']])
 #	test_run0()
 
